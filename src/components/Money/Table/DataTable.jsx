@@ -5,12 +5,12 @@ import Button from "../../Button";
 import Card from "../../Card";
 import { NumericFormat } from "react-number-format";
 import EditMoney from "../Form/EditMoney";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DeleteMoney from "./DeleteMoney";
 import { motion } from "framer-motion";
 
 const DataTable = ({ selectedMoney }) => {
-  const { money, editMoney, user } = useDataContext();
+  const { money, editMoney, user, getMoney } = useDataContext();
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(0);
@@ -20,7 +20,7 @@ const DataTable = ({ selectedMoney }) => {
     index: 0,
   });
   const [checkValues, setCheckValues] = useState([]);
-  // const firstUpdate = useRef(true);
+  const timeOutMoneyRef = useRef(null);
 
   const handleEdit = (id) => {
     setSelectedId(id);
@@ -39,10 +39,17 @@ const DataTable = ({ selectedMoney }) => {
       selectedCheck.id,
       true
     );
+    clearTimeout(timeOutMoneyRef.current);
+    if (res.status == "success") {
+      timeOutMoneyRef.current = setTimeout(async () => {
+        await getMoney(user.token);
+      }, 100);
+    }
     console.log(res);
   };
 
   const handleCheckboxChange = (id, index) => {
+    clearTimeout(timeOutMoneyRef.current);
     setSelectedCheck({ id, index });
     const newChecks = [...checkValues];
     newChecks[index] = !checkValues[index];
@@ -58,7 +65,9 @@ const DataTable = ({ selectedMoney }) => {
 
   useEffect(() => {
     const boxesValues = money.map((item) => item.attributes.status);
-    setCheckValues(boxesValues);
+    if (checkValues.length == 0) {
+      setCheckValues(boxesValues);
+    }
   }, [money]);
 
   const trs =
