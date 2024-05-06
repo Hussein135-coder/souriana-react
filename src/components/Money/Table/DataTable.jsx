@@ -5,19 +5,22 @@ import Button from "../../Button";
 import Card from "../../Card";
 import { NumericFormat } from "react-number-format";
 import EditMoney from "../Form/EditMoney";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteMoney from "./DeleteMoney";
 import { motion } from "framer-motion";
 
 const DataTable = ({ selectedMoney }) => {
-  const { money, editMoney, user, wait, pagination } = useDataContext();
+  const { money, editMoney, user } = useDataContext();
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(0);
 
-  const [selectedCheckId, setSelectedCheckId] = useState(0);
-  const [checkValue, setCheckValue] = useState(null);
-  const firstUpdate = useRef(true);
+  const [selectedCheck, setSelectedCheck] = useState({
+    id: 0,
+    index: 0,
+  });
+  const [checkValues, setCheckValues] = useState([]);
+  // const firstUpdate = useRef(true);
 
   const handleEdit = (id) => {
     setSelectedId(id);
@@ -28,25 +31,35 @@ const DataTable = ({ selectedMoney }) => {
     setSelectedId(id);
     setDeleteOpen(true);
   };
-  console.log(pagination, "pag");
 
-  const CheckboxChange = async () => {
+  const updateCheckbox = async () => {
     const res = await editMoney(
-      { status: checkValue },
+      { status: checkValues[selectedCheck.index] },
       user.token,
-      selectedCheckId,
+      selectedCheck.id,
       true
     );
     console.log(res);
   };
 
+  const handleCheckboxChange = (id, index) => {
+    setSelectedCheck({ id, index });
+    const newChecks = [...checkValues];
+    newChecks[index] = !checkValues[index];
+    setCheckValues(newChecks);
+  };
+
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
+    if (selectedCheck.id == 0) {
       return;
     }
-    CheckboxChange();
-  }, [selectedCheckId, checkValue]);
+    updateCheckbox();
+  }, [selectedCheck]);
+
+  useEffect(() => {
+    const boxesValues = money.map((item) => item.attributes.status);
+    setCheckValues(boxesValues);
+  }, [money]);
 
   const trs =
     selectedMoney.length == 0 ? (
@@ -57,7 +70,7 @@ const DataTable = ({ selectedMoney }) => {
       </tr>
     ) : (
       selectedMoney?.map((item, i) => {
-        const { name, company, number, date, status } = item.attributes;
+        const { name, company, number, date } = item.attributes;
         return (
           <motion.tr
             initial={{ opacity: 0 }}
@@ -81,29 +94,12 @@ const DataTable = ({ selectedMoney }) => {
             <td>{company}</td>
             <td>{date}</td>
             <td className="h-[60.5px] flex justify-center items-center">
-              {selectedCheckId != item.id ? (
-                <input
-                  type="checkbox"
-                  className="w-5 h-5 rounded"
-                  checked={Number(status)}
-                  onChange={() => {
-                    setSelectedCheckId(item.id);
-                    setCheckValue((prev) => (prev ? !prev : !Number(status)));
-                  }}
-                />
-              ) : wait ? (
-                <ImSpinner2 className="mx-auto text-xl animate-spin" />
-              ) : (
-                <input
-                  type="checkbox"
-                  className="w-5 h-5 rounded"
-                  checked={Number(status)}
-                  onChange={() => {
-                    setSelectedCheckId(item.id);
-                    setCheckValue((prev) => (prev ? !prev : !Number(status)));
-                  }}
-                />
-              )}
+              <input
+                type="checkbox"
+                className="w-5 h-5 rounded"
+                checked={Number(checkValues[i])}
+                onChange={() => handleCheckboxChange(item.id, i)}
+              />
             </td>
             <td>
               <Button

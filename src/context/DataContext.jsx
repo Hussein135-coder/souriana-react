@@ -99,7 +99,7 @@ const DataContextProvider = ({ children }) => {
 
   const getMoney = async (token) => {
     try {
-      const res = await Axios.get("monies?sort[0]=date:desc", {
+      const res = await Axios.get("monies?sort[0]=date:desc&sort[1]=name", {
         headers: { Authorization: `bearer ${token}` },
       });
       const data = res.data;
@@ -176,7 +176,7 @@ const DataContextProvider = ({ children }) => {
       console.log(data, "edit money");
 
       if (data != null) {
-        check ? await getMoney(user.token) : getMoney(user.token);
+        !check && getMoney(user.token);
 
         return { status: "success" };
       } else {
