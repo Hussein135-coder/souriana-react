@@ -55,7 +55,10 @@ const Money = () => {
         selectedId={selectedId}
       />
       <GeneralData selectedMoney={selectedMoney} selectedId={selectedId} />
-      <DataTable selectedMoney={selectedMoney} />
+      <DataTable
+        selectedMoney={selectedMoney}
+        setSelectedMoney={setSelectedMoney}
+      />
     </div>
   );
 };

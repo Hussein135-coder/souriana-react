@@ -178,7 +178,7 @@ const DataContextProvider = ({ children }) => {
       if (data != null) {
         !check && getMoney(user.token);
 
-        return { status: "success" };
+        return { status: "success", data: data.data };
       } else {
         return { status: "failed" };
       }

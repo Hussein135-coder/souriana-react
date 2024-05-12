@@ -59,8 +59,8 @@ export function moneyValidation(
   if (data.number.length == 0) {
     numberErrors.push("المبلغ مطلوب");
   }
-  if (data.number.length > 7) {
-    numberErrors.push("أدخل أقل من 7 أرقام");
+  if (data.number.length > 8) {
+    numberErrors.push("أدخل أقل من 8 أرقام");
   }
   if (data.number.length < 4) {
     numberErrors.push("أدخل أكثر من 3 أرقام");
