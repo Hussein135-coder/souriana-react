@@ -62,11 +62,11 @@ const DataTable = ({ selectedMoney, setSelectedMoney }) => {
   }, [selectedCheck]);
 
   useEffect(() => {
-    const boxesValues = money.map((item) => item.attributes.status);
+    const boxesValues = selectedMoney.map((item) => item.attributes.status);
     if (checkValues.length == 0) {
       setCheckValues(boxesValues);
     }
-  }, [money]);
+  }, [selectedMoney]);
 
   const trs =
     selectedMoney.length == 0 ? (
