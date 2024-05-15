@@ -12,6 +12,7 @@ const AnalyticsForm = ({ handleSubmit, errorMsg, clicked, setValid, page }) => {
     name: "",
     likes: "",
     members: "",
+    insta: "",
     date: "",
   });
 
@@ -26,15 +27,23 @@ const AnalyticsForm = ({ handleSubmit, errorMsg, clicked, setValid, page }) => {
 
   let facebookErrors = [],
     telegramErrors = [],
+    instaErrors = [],
     dateErrors = [];
 
   // Validate Inputs
-  analyticsValidatioin(data, facebookErrors, telegramErrors, dateErrors);
+  analyticsValidatioin(
+    data,
+    facebookErrors,
+    telegramErrors,
+    instaErrors,
+    dateErrors
+  );
 
   useEffect(() => {
     if (
       facebookErrors.length == 0 &&
       telegramErrors.length == 0 &&
+      instaErrors.length == 0 &&
       dateErrors.length == 0
     ) {
       setValid(true);
@@ -93,6 +102,21 @@ const AnalyticsForm = ({ handleSubmit, errorMsg, clicked, setValid, page }) => {
           />
         </div>
         {clicked && <Error errorsArr={telegramErrors} />}
+
+        {/* Number of Instagram */}
+        <div className="mt-3 mb-2">
+          <label className="block my-2 text-gray-100">مشتركين الانستغرام</label>
+          <input
+            id="insta"
+            type="number"
+            name="insta"
+            onChange={handleChange}
+            className="p-2 rounded w-full text-gray-900 focus:outline-0 "
+            placeholder="مشتركين الانستغرام"
+            aria-label="مشتركين الانستغرام"
+          />
+        </div>
+        {clicked && <Error errorsArr={instaErrors} />}
 
         {/* Date */}
         <div className="mb-2">

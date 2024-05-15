@@ -7,7 +7,12 @@ const AnalyticsTable = ({ social }) => {
   const { analytics } = useDataContext();
 
   const trs = Object.keys(analytics)?.map((pageName) => {
-    const type = social == "Facebook" ? "likes" : "members";
+    const type =
+      social == "Facebook"
+        ? "likes"
+        : social == "Telegram"
+        ? "members"
+        : "insta";
     const title = analytics[pageName][0]?.attributes.name;
     const today = analytics[pageName][0]?.attributes[type];
     const yesterday = analytics[pageName][1]?.attributes[type];

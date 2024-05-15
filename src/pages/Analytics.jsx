@@ -11,6 +11,7 @@ const Analytics = () => {
       <PagesCards />
       <AnalyticsTable social={"Facebook"} />
       <AnalyticsTable social={"Telegram"} />
+      <AnalyticsTable social={"Instagram"} />
       <MonthlyAnalytics />
     </div>
   );

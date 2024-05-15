@@ -6,7 +6,8 @@ import useDataContext from "../../../hooks/useDataContext";
 const AnalyticCell = ({ page, social }) => {
   const { monthlyAnalytics } = useDataContext();
 
-  const type = social == "Facebook" ? "likes" : "members";
+  const type =
+    social == "Facebook" ? "likes" : social == "Telegram" ? "members" : "insta";
   const monthLast = monthlyAnalytics[page][0]?.attributes[type];
   const monthFirst = monthlyAnalytics[page][1]?.attributes[type];
 

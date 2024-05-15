@@ -77,6 +77,7 @@ export function analyticsValidatioin(
   data,
   facebookErrors,
   telegramErrors,
+  instaErrors,
   dateErrors
 ) {
   if (data.likes.length == 0) {
@@ -87,6 +88,9 @@ export function analyticsValidatioin(
   }
   if (data.members.length == 0) {
     telegramErrors.push("عدد المشتركين مطلوب");
+  }
+  if (data.insta.length == 0) {
+    instaErrors.push("عدد المشتركين مطلوب");
   }
   if (data.members.length < 5) {
     telegramErrors.push("عدد المشتركين 5 أرقام على الأقل");
