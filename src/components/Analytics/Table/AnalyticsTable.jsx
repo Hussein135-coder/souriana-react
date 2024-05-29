@@ -13,9 +13,9 @@ const AnalyticsTable = ({ social }) => {
         : social == "Telegram"
         ? "members"
         : "insta";
-    const title = analytics[pageName][0]?.attributes.name;
-    const today = analytics[pageName][0]?.attributes[type];
-    const yesterday = analytics[pageName][1]?.attributes[type];
+    const title = analytics[pageName][0]?.name;
+    const today = analytics[pageName][0] && analytics[pageName][0][type];
+    const yesterday = analytics[pageName][1] && analytics[pageName][1][type];
 
     const diffrence = today - yesterday || 0;
     return (

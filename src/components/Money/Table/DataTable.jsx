@@ -49,7 +49,7 @@ const DataTable = ({ selectedMoney, setSelectedMoney }) => {
 
     // Update Selected Money
     const newMoney = [...selectedMoney];
-    newMoney[index].attributes.status = newChecks[index];
+    newMoney[index].status = newChecks[index];
     console.log(newMoney, "new Money");
     setSelectedMoney(newMoney);
   };
@@ -62,14 +62,14 @@ const DataTable = ({ selectedMoney, setSelectedMoney }) => {
   }, [selectedCheck]);
 
   useEffect(() => {
-    const boxesValues = selectedMoney.map((item) => item.attributes.status);
-    if (selectedMoney.length != 0) {
+    const boxesValues = selectedMoney?.map((item) => item.status);
+    if (selectedMoney?.length != 0) {
       setCheckValues(boxesValues);
     }
   }, [selectedMoney]);
 
   const trs =
-    selectedMoney.length == 0 ? (
+    selectedMoney?.length == 0 ? (
       <tr>
         <td colSpan="8" className="py-14 text-xl">
           <h3>لا يوجد حوالات</h3>
@@ -77,7 +77,7 @@ const DataTable = ({ selectedMoney, setSelectedMoney }) => {
       </tr>
     ) : (
       selectedMoney?.map((item, i) => {
-        const { name, company, number, date } = item.attributes;
+        const { name, company, number, date } = item;
         return (
           <motion.tr
             initial={{ opacity: 0 }}
@@ -131,7 +131,7 @@ const DataTable = ({ selectedMoney, setSelectedMoney }) => {
   return (
     <>
       <Card className={"max-w-[700px] w-full overflow-x-auto mt-10 pt-8 px-5"}>
-        {money.length == 0 ? (
+        {money?.length == 0 ? (
           <div className="min-h-[200px] flex justify-center items-center">
             <ImSpinner2 className="mx-auto text-xl animate-spin" />
           </div>

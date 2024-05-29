@@ -8,8 +8,10 @@ const AnalyticCell = ({ page, social }) => {
 
   const type =
     social == "Facebook" ? "likes" : social == "Telegram" ? "members" : "insta";
-  const monthLast = monthlyAnalytics[page][0]?.attributes[type];
-  const monthFirst = monthlyAnalytics[page][1]?.attributes[type];
+  const monthLast =
+    monthlyAnalytics[page][0] && monthlyAnalytics[page][0][type];
+  const monthFirst =
+    monthlyAnalytics[page][1] && monthlyAnalytics[page][1][type];
 
   const diffrence = monthLast - monthFirst;
 

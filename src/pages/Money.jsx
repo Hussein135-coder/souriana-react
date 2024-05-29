@@ -13,6 +13,12 @@ const names = [
   { deaa: "ضياء" },
 ];
 
+const arNames = {
+  hussein: "حسين",
+  saleh: "صالح",
+  deaa: "ضياء",
+};
+
 const Money = () => {
   const { getMoney, user, money } = useDataContext();
 
@@ -29,7 +35,7 @@ const Money = () => {
       setSelectedMoney(money);
     } else {
       const filterdMoney = money.filter((item) => {
-        return item.attributes.user == user;
+        return item.user == user;
       });
       setSelectedMoney(filterdMoney);
     }
@@ -43,7 +49,7 @@ const Money = () => {
   return (
     <div className="container mx-auto px-[4%]">
       <h3 className="mt-14 mb-5 dark:text-gray-100 text-xl sm:text-2xl  ">
-        أهلا بك {user.id ? names[user.id][user.username] : null}
+        أهلا بك {user?.username ? arNames[user?.username] : null}
       </h3>
       <AddMoney />
       <h3 className="mt-5 mb-5 dark:text-gray-100 text-xl sm:text-2xl text-center ">

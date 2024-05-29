@@ -54,9 +54,7 @@ const DataContextProvider = ({ children }) => {
       if (error.message == "Network Error") {
         return { status: "Network Error" };
       }
-      if (error.response.data.error.name == "ValidationError") {
-        return { status: "notValid" };
-      }
+
       return { status: "failed" };
     } finally {
       setWait(false);
@@ -104,13 +102,10 @@ const DataContextProvider = ({ children }) => {
       });
       const data = res.data;
       console.log(data, "all data");
-      setMoney(data.data);
+      setMoney(data);
       return { status: "success" };
     } catch (error) {
       console.log(error, "money error");
-      if (error.response.data.error.name == "ValidationError") {
-        return { status: "notValid" };
-      }
       return { status: "failed" };
     }
   };
@@ -122,13 +117,11 @@ const DataContextProvider = ({ children }) => {
       const res = await Axios.get(`monies/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = res.data.data.attributes;
+      const data = res.data;
       return { status: "success", data };
     } catch (error) {
       console.log(error, "money error");
-      if (error.response.data.error.name == "ValidationError") {
-        return { status: "notValid" };
-      }
+
       return { status: "failed" };
     }
   };
@@ -227,15 +220,13 @@ const DataContextProvider = ({ children }) => {
       const data = res.data;
       console.log(data, page, "analyutics data");
       setAnalytics((prev) => {
-        return { ...prev, [page]: data.data };
+        return { ...prev, [page]: data };
       });
       console.log(analytics, page);
       return { status: "success" };
     } catch (error) {
       console.log(error, "analytics error");
-      if (error.response.data.error.name == "ValidationError") {
-        return { status: "notValid" };
-      }
+
       return { status: "failed" };
     }
   };
@@ -251,7 +242,7 @@ const DataContextProvider = ({ children }) => {
     const nextYear = month == "12" ? Number(year) + 1 : year;
     try {
       const res = await Axios.get(
-        `${page}s?sort[0]=date:desc&filters[date][$eq]=${nextYear}-${nextMonth}-02&filters[date][$eq]=${year}-${month}-02`,
+        `${page}?sort[0]=date:desc&filters[date][$eq]=${nextYear}-${nextMonth}-02&filters[date][$eq]=${year}-${month}-02`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -259,15 +250,13 @@ const DataContextProvider = ({ children }) => {
       const data = res.data;
       console.log(data, page, "analyutics Monthhhhhh", nextYear, nextMonth);
       setMonthlyAnalytics((prev) => {
-        return { ...prev, [page]: data.data };
+        return { ...prev, [page]: data };
       });
       console.log(monthlyAnalytics, page);
       return { status: "success" };
     } catch (error) {
       console.log(error, "analytics error");
-      if (error.response.data.error.name == "ValidationError") {
-        return { status: "notValid" };
-      }
+
       return { status: "failed" };
     }
   };

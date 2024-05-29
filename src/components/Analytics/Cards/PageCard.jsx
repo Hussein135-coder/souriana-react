@@ -28,7 +28,7 @@ const PageCard = ({ image, title, likes, endPoint, date }) => {
   };
 
   useEffect(() => {
-    if (analytics.syredu.length == 0) {
+    if (analytics?.syredu?.length == 0) {
       getPageAnalytics();
     }
   }, []);

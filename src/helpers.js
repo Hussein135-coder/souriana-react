@@ -32,11 +32,12 @@ export function removeToken() {
 export function analyiseMoney(money, status) {
   let count = 0;
   let moneyNumber = 0;
-
-  for (const item of money) {
-    if (status == item.attributes.status || status == "total") {
-      count++;
-      moneyNumber += Number(item.attributes.number);
+  if (money) {
+    for (const item of money) {
+      if (status == item.status || status == "total") {
+        count++;
+        moneyNumber += Number(item.number);
+      }
     }
   }
 
