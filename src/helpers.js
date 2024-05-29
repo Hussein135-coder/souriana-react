@@ -1,8 +1,8 @@
 export function loginValidation(data, userNameErrors, passwordErrors) {
-  if (data.identifier.length == 0) {
+  if (data.username.length == 0) {
     userNameErrors.push("اسم المستخدم مطلوب");
   }
-  if (data.identifier.length < 3) {
+  if (data.username.length < 3) {
     userNameErrors.push("اسم المستخدم ٣ أحرف على الأقل");
   }
   if (data.password.length == 0) {
