@@ -11,7 +11,7 @@ import Card from "../components/Card";
 import transition from "../transition";
 const Login = () => {
   const [data, setData] = useState({
-    identifier: "",
+    username: "",
     password: "",
   });
 
@@ -70,7 +70,7 @@ const Login = () => {
               <input
                 id="name"
                 type="text"
-                name="identifier"
+                name="username"
                 onChange={handleChange}
                 className="p-2 rounded w-full text-gray-900 focus:outline-0"
                 placeholder="اسم المستخدم"
