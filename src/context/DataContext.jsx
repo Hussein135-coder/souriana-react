@@ -242,7 +242,7 @@ const DataContextProvider = ({ children }) => {
     const nextYear = month == "12" ? Number(year) + 1 : year;
     try {
       const res = await Axios.get(
-        `${page}?sort[0]=date:desc&filters[date][$eq]=${nextYear}-${nextMonth}-02&filters[date][$eq]=${year}-${month}-02`,
+        `${page}?sort[0]=date:desc&filters[date][$eq]=${nextYear}-${nextMonth}-01&filters[date][$eq]=${year}-${month}-01`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
