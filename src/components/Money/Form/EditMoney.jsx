@@ -41,7 +41,6 @@ const EditMoney = ({ isOpen, setIsOpen, selectedId }) => {
                 errorMsg={errorMsg}
                 clicked={clicked}
                 setValid={setValid}
-                valid={valid}
               />
             ) : (
               <ImSpinner2 className="mx-auto text-xl animate-spin" />

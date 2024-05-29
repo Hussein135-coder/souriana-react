@@ -60,7 +60,6 @@ const AddMoney = () => {
             errorMsg={errorMsg}
             clicked={clicked}
             setValid={setValid}
-            valid={valid}
           />
         </Modal>
       )}

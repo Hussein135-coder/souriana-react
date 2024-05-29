@@ -13,7 +13,6 @@ const MoneyForm = ({
   errorMsg,
   clicked,
   setValid,
-  valid,
 }) => {
   const { wait } = useDataContext();
   const [data, setData] = useState(initData);
@@ -51,17 +50,6 @@ const MoneyForm = ({
       setValid(false);
     }
   }, [data]);
-
-  console.log(
-    nameErrors,
-    companyErrors,
-    dateErrors,
-    numberErrors,
-    valid,
-    "äerroes"
-  );
-
-  console.log(data);
 
   return (
     <form>

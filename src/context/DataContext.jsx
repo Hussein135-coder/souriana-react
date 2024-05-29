@@ -32,7 +32,7 @@ const DataContextProvider = ({ children }) => {
   const userLogin = async (userData) => {
     setWait(true);
     try {
-      const res = await Axios.post("auth/local", userData);
+      const res = await Axios.post("auth/login", userData);
       const data = res.data;
       console.log(data, "login");
 
@@ -99,7 +99,7 @@ const DataContextProvider = ({ children }) => {
 
   const getMoney = async (token) => {
     try {
-      const res = await Axios.get("monies?sort[0]=date:desc&sort[1]=name", {
+      const res = await Axios.get("monies?sort[0]=date:DESC&sort[1]=name:ASC", {
         headers: { Authorization: `bearer ${token}` },
       });
       const data = res.data;
@@ -219,7 +219,7 @@ const DataContextProvider = ({ children }) => {
   const getAnalytics = async (token, page) => {
     try {
       const res = await Axios.get(
-        `${page}s?sort[0]=date:desc&pagination[start]=0&pagination[limit]=2`,
+        `${page}?sort[0]=date:desc&pagination[start]=0&pagination[limit]=2`,
         {
           headers: { Authorization: `bearer ${token}` },
         }
@@ -251,7 +251,7 @@ const DataContextProvider = ({ children }) => {
     const nextYear = month == "12" ? Number(year) + 1 : year;
     try {
       const res = await Axios.get(
-        `${page}s?sort[0]=date:desc&filters[date][$eq]=${nextYear}-${nextMonth}-01&filters[date][$eq]=${year}-${month}-01`,
+        `${page}s?sort[0]=date:desc&filters[date][$eq]=${nextYear}-${nextMonth}-02&filters[date][$eq]=${year}-${month}-02`,
         {
           headers: { Authorization: `bearer ${token}` },
         }
@@ -277,7 +277,7 @@ const DataContextProvider = ({ children }) => {
     setWait(true);
     try {
       const res = await Axios.post(
-        `${page}s`,
+        `${page}`,
         { data: analytic },
         {
           headers: { Authorization: `bearer ${token}` },
