@@ -67,7 +67,7 @@ const DataContextProvider = ({ children }) => {
   const fetchLoggedInUser = async (token) => {
     try {
       const response = await Axios.get(`/users/me`, {
-        headers: { Authorization: `bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.data;
       console.log(user, "fetch");
@@ -100,7 +100,7 @@ const DataContextProvider = ({ children }) => {
   const getMoney = async (token) => {
     try {
       const res = await Axios.get("monies?sort[0]=date:DESC&sort[1]=name:ASC", {
-        headers: { Authorization: `bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = res.data;
       console.log(data, "all data");
@@ -120,7 +120,7 @@ const DataContextProvider = ({ children }) => {
   const getOneMoney = async (token, id) => {
     try {
       const res = await Axios.get(`monies/${id}`, {
-        headers: { Authorization: `bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = res.data.data.attributes;
       return { status: "success", data };
@@ -141,7 +141,7 @@ const DataContextProvider = ({ children }) => {
         "monies",
         { data: money },
         {
-          headers: { Authorization: `bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       const data = res.data;
@@ -169,7 +169,7 @@ const DataContextProvider = ({ children }) => {
         `monies/${id}`,
         { data: money },
         {
-          headers: { Authorization: `bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       const data = res.data;
@@ -195,7 +195,7 @@ const DataContextProvider = ({ children }) => {
     setWait(true);
     try {
       const res = await Axios.delete(`monies/${id}`, {
-        headers: { Authorization: `bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = res.data;
       console.log(data, "delete money");
@@ -221,7 +221,7 @@ const DataContextProvider = ({ children }) => {
       const res = await Axios.get(
         `${page}?sort[0]=date:desc&pagination[start]=0&pagination[limit]=2`,
         {
-          headers: { Authorization: `bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       const data = res.data;
@@ -253,7 +253,7 @@ const DataContextProvider = ({ children }) => {
       const res = await Axios.get(
         `${page}s?sort[0]=date:desc&filters[date][$eq]=${nextYear}-${nextMonth}-02&filters[date][$eq]=${year}-${month}-02`,
         {
-          headers: { Authorization: `bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       const data = res.data;
@@ -280,7 +280,7 @@ const DataContextProvider = ({ children }) => {
         `${page}`,
         { data: analytic },
         {
-          headers: { Authorization: `bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       const data = res.data;
