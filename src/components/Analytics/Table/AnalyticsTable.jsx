@@ -6,21 +6,38 @@ import useDataContext from "../../../hooks/useDataContext";
 const AnalyticsTable = ({ social }) => {
   const { analytics } = useDataContext();
 
-  const trs = Object.keys(analytics)?.map((pageName) => {
+  const analyticsArr = Object.keys(analytics);
+
+  const getAnalytics = (pageName) => {
     const type =
       social == "Facebook"
         ? "likes"
         : social == "Telegram"
         ? "members"
         : "insta";
+
     const title = analytics[pageName][0]?.name;
     const today = analytics[pageName][0] && analytics[pageName][0][type];
     const yesterday = analytics[pageName][1] && analytics[pageName][1][type];
 
     const diffrence = today - yesterday || 0;
+
+    return { title, today, yesterday, diffrence };
+  };
+  const diffArr = analyticsArr?.map((pageName) => {
+    const { diffrence } = getAnalytics(pageName);
+    return diffrence;
+  });
+
+  const maxDiff = Math.max(...diffArr);
+
+  const trs = analyticsArr?.map((pageName) => {
+    const { title, today, yesterday, diffrence } = getAnalytics(pageName);
     return (
       <tr key={pageName} className="border-b border-gray-400">
-        <th>{title}</th>
+        <th style={diffrence == maxDiff ? { color: "#ff9800" } : {}}>
+          {title}
+        </th>
         <td>{yesterday}</td>
         <td>{today}</td>
         <td
