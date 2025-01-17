@@ -7,7 +7,6 @@ const AnalyticsTable = ({ social }) => {
   const { analytics } = useDataContext();
 
   const analyticsArr = Object.keys(analytics);
-
   const getAnalytics = (pageName) => {
     const type =
       social == "Facebook"
@@ -16,6 +15,8 @@ const AnalyticsTable = ({ social }) => {
         ? "members"
         : "insta";
 
+    console.log(analytics["syredu"][0]?.date);
+    console.log(analytics["syredu"][1]?.date);
     const title = analytics[pageName][0]?.name;
     const today = analytics[pageName][0] && analytics[pageName][0][type];
     const yesterday = analytics[pageName][1] && analytics[pageName][1][type];
@@ -69,10 +70,10 @@ const AnalyticsTable = ({ social }) => {
         ) : (
           <table className="w-full text-center pt-5">
             <thead>
-              <tr className="border-b border-b-  border-gray-400">
+              <tr className="border-b border-gray-400">
                 <th>#</th>
-                <th>البارحة</th>
-                <th>اليوم</th>
+                <th>/ {analytics["syredu"][1]?.date} /</th>
+                <th>/ {analytics["syredu"][0]?.date} /</th>
                 <th>الفرق</th>
               </tr>
             </thead>

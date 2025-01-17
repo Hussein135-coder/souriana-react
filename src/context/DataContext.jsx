@@ -208,6 +208,25 @@ const DataContextProvider = ({ children }) => {
     }
   };
 
+  // Delete All Money
+  const deleteAllMoney = async (token) => {
+    try {
+      const res = await Axios.delete(`monies`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (res.status == 200) {
+        getMoney(user.token);
+        return { status: "success" };
+      } else {
+        return { status: "failed" };
+      }
+    } catch (error) {
+      console.log(error);
+      return { status: "failed" };
+    }
+  };
+
   // Get Analytics
   const getAnalytics = async (token, page) => {
     try {
@@ -305,6 +324,7 @@ const DataContextProvider = ({ children }) => {
         getOneMoney,
         editMoney,
         deleteMoney,
+        deleteAllMoney,
         moneyErrors,
         setMoneyErrors,
         getAnalytics,

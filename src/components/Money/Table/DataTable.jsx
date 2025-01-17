@@ -10,10 +10,11 @@ import DeleteMoney from "./DeleteMoney";
 import { motion } from "framer-motion";
 
 const DataTable = ({ selectedMoney, setSelectedMoney }) => {
-  const { money, editMoney, user } = useDataContext();
+  const { money, editMoney, user, deleteAllMoney } = useDataContext();
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [selectedCheck, setSelectedCheck] = useState({
     id: 0,
@@ -52,6 +53,23 @@ const DataTable = ({ selectedMoney, setSelectedMoney }) => {
     newMoney[index].status = newChecks[index];
     console.log(newMoney, "new Money");
     setSelectedMoney(newMoney);
+  };
+
+  const handleDeleteAll = async (e) => {
+    setIsLoading(true);
+    try {
+      const res = await deleteAllMoney(user.token);
+      if (res.status == "success") {
+        alert("تم الحذف بنجاح");
+      } else {
+        alert("حدث خطأ ما");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("حدث خطأ ما");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -152,6 +170,19 @@ const DataTable = ({ selectedMoney, setSelectedMoney }) => {
             <tbody>{trs}</tbody>
           </table>
         )}
+
+        <Button
+          onClick={handleDeleteAll}
+          type="button"
+          disabled={isLoading}
+          className={"py-2 px-3 mb-3"}
+        >
+          {isLoading ? (
+            <ImSpinner2 className="mx-auto text-xl animate-spin" />
+          ) : (
+            "حذف الكل"
+          )}
+        </Button>
       </Card>
       <EditMoney
         isOpen={editOpen}

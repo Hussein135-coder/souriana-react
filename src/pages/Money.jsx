@@ -48,11 +48,11 @@ const Money = () => {
 
   return (
     <div className="container mx-auto px-[4%]">
-      <h3 className="mt-14 mb-5 dark:text-gray-100 text-xl sm:text-2xl  ">
+      <h3 className="mt-14 mb-5 text-gray-100 text-xl sm:text-2xl  ">
         أهلا بك {user?.username ? arNames[user?.username] : null}
       </h3>
       <AddMoney />
-      <h3 className="mt-5 mb-5 dark:text-gray-100 text-xl sm:text-2xl text-center ">
+      <h3 className="mt-5 mb-5 text-gray-100 text-xl sm:text-2xl text-center ">
         الحوالات المالية
       </h3>
       <FilterBtns
