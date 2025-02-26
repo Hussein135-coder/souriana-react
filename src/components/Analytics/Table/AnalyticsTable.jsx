@@ -40,13 +40,14 @@ const AnalyticsTable = ({ social }) => {
       const { today: syreduToday } = getAnalytics("syredu");
       syreduDiffrence = syreduToday - today;
     }
-    const diffPercent = (diffrence / yesterday) * 100;
-    const diffStyle = diffrence > 0 ? "text-green-500" : "text-red-500";
     const syreduDiffStyle =
       syreduDiffrence > 0 ? "text-green-500" : "text-red-500";
     return (
       <tr key={pageName} className="border-b border-gray-400">
-        <th style={diffrence == maxDiff ? { color: "#ff9800" } : {}}>
+        <td
+          className="text-sm sm:text-base"
+          style={diffrence == maxDiff ? { color: "#ff9800" } : {}}
+        >
           {title}
           {pageName != "syredu" && (
             <span
@@ -54,17 +55,15 @@ const AnalyticsTable = ({ social }) => {
               style={{ direction: "ltr" }}
             >
               <NumericFormat
-                className="px-1"
                 value={syreduDiffrence}
                 thousandSeparator=","
                 displayType="text"
               />
             </span>
           )}
-        </th>
+        </td>
         <td>
           <NumericFormat
-            className="px-1"
             value={yesterday}
             thousandSeparator=","
             displayType="text"
@@ -72,21 +71,16 @@ const AnalyticsTable = ({ social }) => {
         </td>
         <td>
           <NumericFormat
-            className="px-1"
             value={today}
             thousandSeparator=","
             displayType="text"
           />
-          <span className={"block " + diffStyle} style={{ direction: "ltr" }}>
-            {diffPercent.toFixed(2)}%
-          </span>
         </td>
         <td
           className={diffrence > 0 ? "text-green-500" : "text-red-500"}
           style={{ direction: "ltr" }}
         >
           <NumericFormat
-            className="px-1"
             value={diffrence}
             thousandSeparator=","
             displayType="text"
@@ -98,11 +92,7 @@ const AnalyticsTable = ({ social }) => {
 
   return (
     <>
-      <Card
-        className={
-          "max-w-[600px] w-full overflow-x-auto mt-10 pt-8 px-5 relative"
-        }
-      >
+      <Card className={"max-w-[600px] w-full  mt-10 pt-8 relative"}>
         <div className=" absolute top-0 left-0  min-w-full">
           <span className="bg-gray-100 pt-1 text-gray-800 w-full text-center inline-block  text-lg font-bold">
             {social}
@@ -113,17 +103,19 @@ const AnalyticsTable = ({ social }) => {
             <ImSpinner2 className="mx-auto text-xl animate-spin" />
           </div>
         ) : (
-          <table className="w-full text-center pt-5">
-            <thead>
-              <tr className="border-b border-gray-400">
-                <th>#</th>
-                <th>/ {analytics["syredu"][1]?.date} /</th>
-                <th>/ {analytics["syredu"][0]?.date} /</th>
-                <th>الفرق</th>
-              </tr>
-            </thead>
-            <tbody>{trs}</tbody>
-          </table>
+          <div className="overflow-x-auto px-1">
+            <table className="w-full text-center pt-5">
+              <thead>
+                <tr className="border-b border-gray-400">
+                  <th>#</th>
+                  <th>/ {analytics["syredu"][1]?.date} /</th>
+                  <th>/ {analytics["syredu"][0]?.date} /</th>
+                  <th>الفرق</th>
+                </tr>
+              </thead>
+              <tbody>{trs}</tbody>
+            </table>
+          </div>
         )}
       </Card>
     </>
