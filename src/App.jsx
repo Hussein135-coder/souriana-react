@@ -18,16 +18,15 @@ function App() {
         <Routes location={location} key={location.pathname}>
           {/* Public Routes */}
           <Route element={<Layout />}>
-            <Route element={<PersistLogin />}>
-              <Route path="*" element={<Error />} />
-              <Route path="/" element={<Home />} />
+            <Route path="*" element={<Error />} />
+            <Route path="/" element={<Home />} />
 
+            <Route element={<PersistLogin />}>
               <Route element={<Authed />}>
                 <Route path="login" element={<Login />} />
               </Route>
 
               {/* Protected Routes */}
-
               <Route element={<RequireAuth />}>
                 <Route path="money" element={<Money />} />
                 <Route path="analytics" element={<Analytics />} />

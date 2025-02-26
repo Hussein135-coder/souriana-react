@@ -2,6 +2,7 @@
 import { ImSpinner2 } from "react-icons/im";
 import Card from "../../Card";
 import useDataContext from "../../../hooks/useDataContext";
+import { NumericFormat } from "react-number-format";
 
 const AnalyticsTable = ({ social }) => {
   const { analytics } = useDataContext();
@@ -34,18 +35,62 @@ const AnalyticsTable = ({ social }) => {
 
   const trs = analyticsArr?.map((pageName) => {
     const { title, today, yesterday, diffrence } = getAnalytics(pageName);
+    let syreduDiffrence = 0;
+    if (pageName != "syredu") {
+      const { today: syreduToday } = getAnalytics("syredu");
+      syreduDiffrence = syreduToday - today;
+    }
+    const diffPercent = (diffrence / yesterday) * 100;
+    const diffStyle = diffrence > 0 ? "text-green-500" : "text-red-500";
+    const syreduDiffStyle =
+      syreduDiffrence > 0 ? "text-green-500" : "text-red-500";
     return (
       <tr key={pageName} className="border-b border-gray-400">
         <th style={diffrence == maxDiff ? { color: "#ff9800" } : {}}>
           {title}
+          {pageName != "syredu" && (
+            <span
+              className={"block " + syreduDiffStyle}
+              style={{ direction: "ltr" }}
+            >
+              <NumericFormat
+                className="px-1"
+                value={syreduDiffrence}
+                thousandSeparator=","
+                displayType="text"
+              />
+            </span>
+          )}
         </th>
-        <td>{yesterday}</td>
-        <td>{today}</td>
+        <td>
+          <NumericFormat
+            className="px-1"
+            value={yesterday}
+            thousandSeparator=","
+            displayType="text"
+          />
+        </td>
+        <td>
+          <NumericFormat
+            className="px-1"
+            value={today}
+            thousandSeparator=","
+            displayType="text"
+          />
+          <span className={"block " + diffStyle} style={{ direction: "ltr" }}>
+            {diffPercent.toFixed(2)}%
+          </span>
+        </td>
         <td
           className={diffrence > 0 ? "text-green-500" : "text-red-500"}
           style={{ direction: "ltr" }}
         >
-          {diffrence}
+          <NumericFormat
+            className="px-1"
+            value={diffrence}
+            thousandSeparator=","
+            displayType="text"
+          />
         </td>
       </tr>
     );

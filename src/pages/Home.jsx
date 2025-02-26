@@ -1,5 +1,5 @@
 import transition from "../transition";
-import syredu from "../assets/images/syredu.jpeg";
+import syredu from "../assets/images/syredu.webp";
 
 const Home = () => {
   return (

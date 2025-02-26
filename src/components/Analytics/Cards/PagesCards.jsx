@@ -1,5 +1,5 @@
 import syr from "../../../assets/images/syr.jpeg";
-import syredu from "../../../assets/images/syredu.jpeg";
+import syredu from "../../../assets/images/syredu.webp";
 import bac from "../../../assets/images/bac.jpeg";
 import PageCard from "./PageCard";
 import useDataContext from "../../../hooks/useDataContext";
